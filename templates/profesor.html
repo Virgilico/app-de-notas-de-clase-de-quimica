@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="navbar">
+    <h1>Panel de Química</h1>
+</div>
+
+<div class="container">
+    
+    <!-- SELECCIÓN AL AZAR -->
+    <div class="random-box">
+        <button class="btn-random" onclick="elegirAlAzar()">🎲 Elegir alumno al azar</button>
+        <span id="chosen-name">---</span>
+    </div>
+
+    <!-- TEMA ACTUAL -->
+    <div class="card" style="background: #fff3cd; border: 1px solid #ffeeba; margin-bottom: 20px;">
+        <label><strong>Tema o pregunta actual:</strong></label>
+        <input type="text" id="tema_actual" placeholder="Ej: Estequiometría..." 
+               style="width: 100%; padding: 10px; margin-top:5px; border-radius:5px; border:1px solid #ccc;">
+    </div>
+
+    <h2>Listado de la Clase</h2>
+    <div id="lista-alumnos">
+    {% for alumno in alumnos %}
+        <div class="card student-card" data-nombre="{{ alumno.nombre }}">
+            <div class="student-info">
+                <span class="student-name">{{ alumno.nombre }}</span>
+                <span class="student-stats">Total: <strong>{{ alumno.total }} pts</strong></span>
+            </div>
+            <div class="actions">
+                <form action="/puntuar" method="POST" style="display:flex; gap:5px;">
+                    <input type="hidden" name="alumno_id" value="{{ alumno.id }}">
+                    <input type="hidden" name="tema" class="tema_input">
+                    <button type="submit" name="puntos" value="10" class="btn-score btn-correct" onclick="actualizarTemas()">10</button>
+                    <button type="submit" name="puntos" value="6" class="btn-score btn-partial" onclick="actualizarTemas()">6</button>
+                    <button type="submit" name="puntos" value="1" class="btn-score btn-incorrect" onclick="actualizarTemas()">1</button>
+                </form>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+    <details style="margin-top: 30px; color: #666;">
+        <summary>Configuración: Añadir alumnos</summary>
+        <div class="form-add">
+            <form action="/add_alumno" method="POST" style="display: flex; flex-direction: column; gap: 10px;">
+                <input type="text" name="nombre" placeholder="Nombre completo" required>
+                <input type="text" name="id_acceso" placeholder="ID acceso" required>
+                <button type="submit" class="btn-score" style="background: var(--primary); width: 100%;">Registrar</button>
+            </form>
+        </div>
+    </details>
+</div>
+
+<script>
+// FUNCIÓN PARA EL SORTEO
+function elegirAlAzar() {
+    // Obtenemos todos los nombres de los alumnos que hay en la pantalla
+    var nombres = [];
+    var elementos = document.querySelectorAll('.student-name');
+    
+    elementos.forEach(function(el) {
+        nombres.push(el.innerText);
+    });
+
+    if (nombres.length === 0) {
+        alert("Añade primero algunos alumnos");
+        return;
+    }
+
+    var display = document.getElementById('chosen-name');
+    
+    // Efecto de "ruleta" rápido
+    var giros = 0;
+    var intervalo = setInterval(function() {
+        var random = nombres[Math.floor(Math.random() * nombres.length)];
+        display.innerText = random;
+        giros++;
+        if (giros > 10) {
+            clearInterval(intervalo);
+            // El último que queda es el elegido final
+        }
+    }, 100);
+}
+
+function actualizarTemas() {
+    var tema = document.getElementById('tema_actual').value;
+    var inputs = document.getElementsByClassName('tema_input');
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].value = tema;
+    }
+}
+</script>
+{% endblock %}
