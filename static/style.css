@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+:root {
+    --primary: #0B3D91;
+    --success: #28A745;
+    --partial: #FFC107;
+    --danger: #DC3545;
+    --bg: #F0F2F5;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: var(--bg);
+    margin: 0;
+    color: #333;
+}
+
+.navbar {
+    background: var(--primary);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.container { 
+    padding: 20px; 
+    max-width: 600px; /* Estrechamos un poco para que se vea mejor en tablets/portátiles */
+    margin: auto; 
+}
+
+/* --- TARJETA MEJORADA --- */
+.card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between; /* Separa el texto a la izquierda y botones a la derecha */
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border: 1px solid #e0e0e0;
+}
+
+.student-info {
+    flex: 1; /* Esto hace que el nombre ocupe todo el espacio sobrante */
+    padding-right: 10px;
+}
+
+.student-name {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.student-stats {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* --- BOTONES COMO CÍRCULOS/CUADRADOS PEQUEÑOS --- */
+.actions {
+    display: flex;
+    gap: 10px; /* Espacio entre los botones */
+}
+
+.btn-score {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: transform 0.1s;
+}
+
+.btn-score:active { transform: scale(0.9); }
+
+.btn-correct { background: var(--success); }
+.btn-partial { background: var(--partial); color: #333; }
+.btn-incorrect { background: var(--danger); }
+
+/* Estilo para el formulario */
+.form-add {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    border: 2px dashed #cbd5e0;
+}/* --- ESTILO PARA EL SELECTOR AL AZAR --- */
+.random-box {
+    background: linear-gradient(135deg, #0B3D91 0%, #1a56bd 100%);
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 25px;
+    box-shadow: 0 6px 15px rgba(11, 61, 145, 0.2);
+}
+
+#chosen-name {
+    font-size: 2.2rem;
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+    min-height: 2.5rem;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+}
+
+.btn-random {
+    background: white;
+    color: var(--primary);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+}
+
+.btn-random:hover {
+    background: #f0f0f0;
+    transform: scale(1.05);
+}
